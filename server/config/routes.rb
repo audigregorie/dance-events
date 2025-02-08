@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  post "events/create", to: "events#create"
+  put "events/edit/:id", to: "events#update"
+
   resources :events, only: [:index, :show, :destroy]
-  post "/events/create", to: "events#create"
 end

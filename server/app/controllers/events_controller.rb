@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :destroy]
+  before_action :set_event, only: [:show, :destroy, :update]
 
   # GET /events
   def index
@@ -50,6 +50,17 @@ class EventsController < ApplicationController
     end
   rescue => e
     render json: {error: "An error occurred while deleting the event", details: e.message}, status: :internal_server_error
+  end
+
+  # PUT /events/edit/:id
+  def update
+    if @event.update(event_params)
+      render json: @event, status: :ok
+    else
+      render json: {error: "Failed to update event"}, status: :unprocessable_entity
+    end
+  rescue => e
+    render json: {error: "An error occurred while updating the event", details: e.message}, status: :internal_server_error
   end
 
   private

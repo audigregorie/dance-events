@@ -25,6 +25,13 @@ const ViewSingleEvent = () => {
 
   return (
     <div className="mt-16 flex flex-col gap-4">
+      <div className="flex flex-col items-end justify-center gap-2 text-sm">
+        <Link to={`/events/edit/${id}`} className="mt-4 text-gray-600 hover:text-blue-800">
+          Modify Event
+        </Link>
+        <DeleteEvent />
+      </div>
+
       <h1 className="text-3xl font-bold">{event.event_name}</h1>
       <img src={event.image_url} alt={event.event_name} className="max-h-96 w-full rounded-lg object-cover" />
 
@@ -41,7 +48,7 @@ const ViewSingleEvent = () => {
       </div>
 
       <div className="flex flex-col items-start justify-center">
-        <button onClick={() => setShowMoreInfo((prev) => !prev)} className="text-gray-600 underline">
+        <button onClick={() => setShowMoreInfo((prev) => !prev)} className="text-sm text-gray-600 underline">
           {showMoreInfo ? 'Less info' : 'More info'}
         </button>
 
@@ -55,7 +62,7 @@ const ViewSingleEvent = () => {
         )}
       </div>
 
-      <div className="mt-4 flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         {event.website && (
           <Link to={event.website} className="text-blue-500" target="_blank" rel="noopener noreferrer">
             Visit Website
@@ -66,9 +73,6 @@ const ViewSingleEvent = () => {
             Book Now
           </Link>
         )}
-      </div>
-      <div className="flex items-center justify-end">
-        <DeleteEvent />
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ const DeleteEvent = () => {
   };
 
   return (
-    <button onClick={handleDelete} className="mt-4 text-red-600 hover:text-red-800" disabled={deleteMutation.isPending}>
+    <button onClick={handleDelete} className="text-red-600 hover:text-red-800" disabled={deleteMutation.isPending}>
       {deleteMutation.isPending ? 'Deleting...' : 'Delete Event'}
     </button>
   );

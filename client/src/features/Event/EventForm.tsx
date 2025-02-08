@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Event, EventFormProps } from '../../interfaces/common';
 import Input from '../../components/Input';
 import { EventKeys } from '../../utils/constants';
@@ -25,8 +25,8 @@ const defaultEventData: Partial<Event> = {
   notes: ''
 };
 
-const EventForm = ({ title, initialEventData, onSubmit, isLoading }: EventFormProps) => {
-  const [formData, setFormData] = useState<Partial<Event>>({ ...initialEventData, ...defaultEventData });
+const EventForm = ({ title, existingEventData, onSubmit, isLoading }: EventFormProps) => {
+  const [formData, setFormData] = useState<Partial<Event>>(defaultEventData);
   const navigate = useNavigate();
 
   const convertToNumber = (value: string | undefined): number | undefined => {
@@ -49,6 +49,12 @@ const EventForm = ({ title, initialEventData, onSubmit, isLoading }: EventFormPr
     onSubmit(formData);
     navigate('/events');
   };
+
+  useEffect(() => {
+    if (existingEventData) {
+      setFormData({ ...defaultEventData, ...existingEventData });
+    }
+  }, [existingEventData]);
 
   return (
     <section className="mt-16 flex justify-center">

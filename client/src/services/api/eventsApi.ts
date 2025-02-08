@@ -45,3 +45,13 @@ export const deleteEvent = async (id: string) => {
     throw new Error('Failed to delete event');
   }
 };
+
+export const editEvent = async (id: string, updatedData: Partial<Event>) => {
+  try {
+    const res = await api.put(`/events/edit/${id}`, updatedData);
+    return res.data;
+  } catch (err) {
+    console.error(`Error updating event ${id}:`, err);
+    throw new Error('Failed to update event');
+  }
+};
