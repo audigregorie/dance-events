@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :set_event, only: [:show]
+
   # GET /events
   def index
     @events = if params[:search].present?
@@ -24,5 +26,32 @@ class EventsController < ApplicationController
     end
   rescue => e
     render json: {error: "An error occurred while fetching the event", details: e.message}, status: :internal_server_error
+  end
+
+  # POST /events/create
+  def create
+    @event = Event.new(event_params)
+
+    if @event.save
+      render json: @event, status: :ok
+    else
+      render json: {error: "Failed to create event"}, status: :unprocessable_entity
+    end
+  rescue => e
+    render json: {error: "An error occurred while creating the event", details: e.message}, status: :internal_server_error
+  end
+
+  private
+
+  def set_event
+    @event = Event.find_by(id: params[:id])
+  end
+
+  def event_params
+    params.require(:event).permit(
+      :image_url, :event_name, :description, :location, :address, :city,
+      :state, :country, :ticket_price, :currency, :event_type, :event_category,
+      :video_url, :social_media, :website, :booking_url, :notes
+    )
   end
 end

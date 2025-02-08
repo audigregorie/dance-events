@@ -3,6 +3,7 @@ import App from '../App';
 import Home from '../pages/Home';
 import ViewEvents from '../pages/ViewEvents';
 import ViewSingleEvent from '../pages/ViewSingleEvent';
+import CreateEvent from '../features/Event/CreateEvent';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: '/events/:id',
         element: <ViewSingleEvent />
+      },
+      {
+        path: '/events/create',
+        element: <CreateEvent />
       }
     ]
   }

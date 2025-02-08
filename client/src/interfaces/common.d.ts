@@ -22,3 +22,33 @@ export interface Event {
 export interface EventProp {
   event: Event;
 }
+
+export interface EventFormProps {
+  title?: string;
+  initialData?: Event;
+  onSubmit: (data: Partial<Event>) => void | Promise<void>;
+  isLoading?: boolean;
+}
+
+export interface InputProps {
+  id: string;
+  label: string;
+  type?: string;
+  name: string;
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  optional?: boolean;
+  className: string;
+}
+
+export interface TextareProps {
+  id: string;
+  label: string;
+  name: string;
+  value?: string;
+  rows?: number;
+  optional?: boolean;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  className: string;
+}

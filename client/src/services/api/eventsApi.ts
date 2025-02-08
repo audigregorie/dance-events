@@ -1,3 +1,4 @@
+import { Event } from '../../interfaces/common';
 import { api } from './axiosInstance';
 
 export const fetchEvents = async () => {
@@ -23,5 +24,15 @@ export const fetchEventById = async (id: string) => {
 
     console.error(`Error fetching event by ${id}:`, err);
     throw new Error(`Failed to fetch event by ${id}`);
+  }
+};
+
+export const createEvent = async (eventData: Partial<Event>) => {
+  try {
+    const res = await api.post<Partial<Event>>(`/events/create`, eventData);
+    return res.data;
+  } catch (err) {
+    console.error('Error creating event:', err);
+    throw new Error(`Failed to create event`);
   }
 };

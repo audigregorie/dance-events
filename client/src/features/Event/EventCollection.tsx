@@ -22,7 +22,7 @@ const EventCollection = ({ limit }: { limit?: number }) => {
   // if (!displayedEvents?.length) return <p className="text-center text-lg text-gray-600">No events found{search ? ` matching "${search}"` : ''}.</p>;
 
   return (
-    <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {displayedEvents?.map((event) => <EventCard key={event.id} event={event} />)}
     </div>
   );
