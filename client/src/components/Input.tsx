@@ -1,6 +1,6 @@
 import { InputProps } from '../interfaces/common';
 
-const Input = ({ label, type = 'text', name, value, onChange, required, optional, className }: InputProps) => {
+const Input = ({ label, type = 'text', name, value = '', onChange, required, optional, className }: InputProps) => {
   return (
     <div className={styles.formControlContainer}>
       <div className={styles.formLabelContainer}>

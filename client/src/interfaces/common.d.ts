@@ -25,7 +25,7 @@ export interface EventProp {
 
 export interface EventFormProps {
   title?: string;
-  initialData?: Event;
+  initialEventData?: Event;
   onSubmit: (data: Partial<Event>) => void | Promise<void>;
   isLoading?: boolean;
 }

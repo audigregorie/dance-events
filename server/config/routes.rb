@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :events, only: [:index, :show]
+  resources :events, only: [:index, :show, :destroy]
+  post "/events/create", to: "events#create"
 end

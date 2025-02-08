@@ -36,3 +36,12 @@ export const createEvent = async (eventData: Partial<Event>) => {
     throw new Error(`Failed to create event`);
   }
 };
+
+export const deleteEvent = async (id: string) => {
+  try {
+    await api.delete(`/events/${id}`);
+  } catch (err) {
+    console.error(`Error deleting event ${id}:`, err);
+    throw new Error('Failed to delete event');
+  }
+};

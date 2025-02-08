@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show]
+  before_action :set_event, only: [:show, :destroy]
 
   # GET /events
   def index
@@ -41,10 +41,24 @@ class EventsController < ApplicationController
     render json: {error: "An error occurred while creating the event", details: e.message}, status: :internal_server_error
   end
 
+  # DESTROY /events/:id
+  def destroy
+    if @event.destroy
+      render json: {message: "Event successfully deleted"}, status: :ok
+    else
+      render json: {error: "Failed to delete event"}, status: :unprocessable_entity
+    end
+  rescue => e
+    render json: {error: "An error occurred while deleting the event", details: e.message}, status: :internal_server_error
+  end
+
   private
 
   def set_event
     @event = Event.find_by(id: params[:id])
+    unless @event
+      render json: {error: "Event not found"}, status: :not_found
+    end
   end
 
   def event_params
