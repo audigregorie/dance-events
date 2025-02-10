@@ -52,3 +52,8 @@ export interface TextareProps {
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   className: string;
 }
+
+export interface SearchProps {
+  onSearch: (searchTerm: string) => void;
+  searchTerm: string;
+}
