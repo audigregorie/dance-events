@@ -13,7 +13,7 @@ const EventCollection = ({ events, limit, searchTerm }: { events: Event[]; limit
           ))}
         </div>
       ) : (
-        <p className="text-center text-lg text-gray-600">No events found {searchTerm ?? `matching: ${searchTerm}`}.</p>
+        <p className="text-center text-lg text-gray-600">No events found {searchTerm ? `matching: ${searchTerm}` : '.'}</p>
       )}
     </div>
   );

@@ -8,7 +8,7 @@ const Search = ({ onSearch, searchTerm }: SearchProps) => {
 
   return (
     <div className="flex items-center justify-center">
-      <input type="text" placeholder="Search events..." value={searchTerm} onChange={handleSearch} className="w-full max-w-md rounded-full border border-gray-300 px-4 py-2" />
+      <input type="text" placeholder="Search events..." value={searchTerm} onChange={handleSearch} className="w-full max-w-md rounded-full border border-gray-300 px-4 py-2 outline-none" />
     </div>
   );
 };
