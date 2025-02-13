@@ -1,15 +1,17 @@
 import { Event } from '../../interfaces/common';
 import { api } from './axiosInstance';
 
-export const fetchEvents = async () => {
+export const fetchEvents = async ({ pageParam = 1 }: { pageParam: number }) => {
   try {
-    const res = await api.get('/events');
-    console.log(res.data);
-    return res.data;
+    const res = await api.get(`/events?page=${pageParam}`);
+    return {
+      events: res.data.events ?? [],
+      nextPage: res.data.nextPage ?? null
+    };
   } catch (err: any) {
-    if (err.response?.status === 404) return [];
+    if (err.response?.status === 404) return { events: [], nextPage: null };
     console.error('Error fetching events:', err);
-    throw new Error(`Failed to fetch events`);
+    throw new Error('Failed to fetch events');
   }
 };
 

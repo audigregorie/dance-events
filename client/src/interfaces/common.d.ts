@@ -23,11 +23,23 @@ export interface EventProp {
   event: Event;
 }
 
+export interface EventCollectionProps {
+  events?: Event[];
+  limit?: number;
+  searchTerm?: string;
+  lastEventRef?: (node: HTMLDivElement | null) => void;
+}
+
 export interface EventFormProps {
   title?: string;
   existingEventData?: Event;
   onSubmit: (data: Partial<Event>) => void | Promise<void>;
   isLoading?: boolean;
+}
+
+export interface PaginatedEvents {
+  events: Event[];
+  nextPage: number | null;
 }
 
 export interface InputProps {

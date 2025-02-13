@@ -3,14 +3,8 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = if params[:search].present?
-      search_term = "%#{params[:search]}%"
-      Event.where("event_name ILIKE :search OR description ILIKE :search", search: search_term)
-    else
-      Event.all
-    end
-
-    render json: @events, status: :ok
+    @result = EventQueryService.new(params).call
+    render json: @result, status: :ok
   rescue => e
     render json: {error: "An error occurred while fetching events", details: e.message}, status: :internal_server_error
   end
