@@ -1,23 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
-import { fetchEventById } from '../services/api/eventsApi';
 import DeleteEvent from '../features/Event/DeleteEvent';
 import { useState } from 'react';
+import { useEventQuery } from '../hooks/useEventQueries';
 
 const ViewSingleEvent = () => {
-  const { id } = useParams();
   const [showMoreInfo, setShowMoreInfo] = useState(false);
 
-  const {
-    data: event,
-    isLoading,
-    error
-  } = useQuery({
-    queryKey: ['event', id],
-    queryFn: id ? () => fetchEventById(id) : undefined,
-    enabled: !!id,
-    retry: 1
-  });
+  const { id } = useParams();
+  if (!id) return <p className="text-red-500">Error: Event not found.</p>;
+
+  const { data: event, isLoading, error } = useEventQuery(id);
 
   if (isLoading) return <p>Loading event details...</p>;
   if (error) return <p className="text-red-500">Failed to load event details.</p>;

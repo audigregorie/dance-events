@@ -1,36 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
-import { editEvent, fetchEventById } from '../../services/api/eventsApi';
+import { useParams } from 'react-router-dom';
 import EventForm from './EventForm';
 import { Event } from '../../interfaces/common';
+import { useEditEvent } from '../../hooks/useEventMutations';
+import { useEventQuery } from '../../hooks/useEventQueries';
 
 const EditEvent = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  if (!id) return <p className="text-red-500">Error: Event not found.</p>;
 
-  const {
-    data: event,
-    isLoading,
-    error
-  } = useQuery({
-    queryKey: ['event', id],
-    queryFn: () => fetchEventById(id!),
-    enabled: !!id,
-    retry: 1
-  });
-
-  const editMutation = useMutation({
-    mutationFn: (updatedData: Partial<Event>) => editEvent(id!, updatedData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['event', id] });
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-      navigate('/events');
-    },
-    onError: (err) => {
-      console.error('Failed to update event:', err);
-    }
-  });
+  const { data: event, isLoading, error } = useEventQuery(id);
+  const editMutation = useEditEvent(id);
 
   const handleEdit = async (updatedData: Partial<Event>) => {
     try {

@@ -1,14 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createEvent } from '../../services/api/eventsApi';
 import EventForm from './EventForm';
 import { Event } from '../../interfaces/common';
+import { useCreateEvent } from '../../hooks/useEventMutations';
 
 const CreateEvent = () => {
-  const queryClient = useQueryClient();
-  const createMutation = useMutation({
-    mutationFn: createEvent,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['events'] })
-  });
+  const createMutation = useCreateEvent();
 
   const handleCreateEvent = async (eventData: Partial<Event>) => {
     try {

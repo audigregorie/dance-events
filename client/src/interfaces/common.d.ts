@@ -69,3 +69,9 @@ export interface SearchProps {
   onSearch: (searchTerm: string) => void;
   searchTerm: string;
 }
+
+export interface IntersectionObserverProps {
+  fetchNextPage: () => void;
+  hasNextPage: boolean | undefined;
+  isFetchingNextPage: boolean;
+}

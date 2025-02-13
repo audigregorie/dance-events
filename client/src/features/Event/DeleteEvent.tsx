@@ -1,26 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
-import { deleteEvent } from '../../services/api/eventsApi';
+import { useParams } from 'react-router-dom';
+import { useDeleteEvent } from '../../hooks/useEventMutations';
 
 const DeleteEvent = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  if (!id) return <p className="text-red-500">Error: Event not found.</p>;
 
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteEvent(id!),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-      navigate('/events');
-    }
-  });
+  const deleteMutation = useDeleteEvent(id);
 
   const handleDelete = async () => {
-    if (!id) {
-      console.error('Event ID is missing.');
-      return;
-    }
-
     const confirmDelete = window.confirm('Are you sure you want to delete this event?');
     if (confirmDelete) {
       try {
